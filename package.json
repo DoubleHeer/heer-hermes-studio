@@ -84,6 +84,8 @@
   "dependencies": {
     "@audio/decode-mp3": "^1.1.0",
     "@audio/decode-wav": "^1.2.0",
+    "@json-render/core": "^0.21.0",
+    "@json-render/vue": "^0.21.0",
     "@larksuiteoapi/node-sdk": "^1.73.0",
     "@modelcontextprotocol/client": "^2.0.0",
     "@vscode/markdown-it-katex": "^1.1.2",

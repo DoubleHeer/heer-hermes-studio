@@ -35,6 +35,7 @@ import { isServerTtsProvider } from "@/api/studio/tts";
 import type { ProfileAvatar as ProfileAvatarData } from "@/api/hermes/profiles";
 import ProfileAvatar from "@/components/hermes/profiles/ProfileAvatar.vue";
 import ImagePreviewOverlay from "./ImagePreviewOverlay.vue";
+import JsonRenderCard from "./JsonRenderCard.vue";
 
 const MarkdownRenderer = defineAsyncComponent(async () => (await import("./MarkdownRenderer.vue")).default);
 
@@ -657,6 +658,16 @@ const renderedToolResult = computed(() => {
   );
 });
 
+// Some agent runtimes return generated UI through code_exec instead of the
+// assistant text stream. Render only an explicitly fenced json-render payload;
+// all other tool output retains the existing detail view.
+const jsonRenderToolContent = computed(() => {
+  if (props.message.role !== 'tool' || props.message.toolName !== 'code_exec') return null
+  const result = props.message.toolResult
+  if (typeof result === 'string' && /```json-render\b/i.test(result)) return result
+  return null
+})
+
 function handleToolLineClick() {
   if (isSubagentTool.value) {
     openSubagentStream(chatStore.activeSessionId, props.message.toolCallId);
@@ -1010,6 +1021,13 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </Transition>
+      <JsonRenderCard
+        v-if="jsonRenderToolContent"
+        :content="jsonRenderToolContent"
+        :session-id="chatStore.activeSessionId || undefined"
+        :message-id="message.id"
+        :heading-id-prefix="effectiveHeadingIdPrefix"
+      />
     </template>
     <template v-else>
       <div class="msg-body">
@@ -1141,9 +1159,11 @@ onBeforeUnmount(() => {
                 <MarkdownRenderer :content="thinkingFullText" />
               </div>
             </div>
-            <MarkdownRenderer
+            <JsonRenderCard
               v-if="parsedThinking.body && message.role === 'assistant'"
               :content="parsedThinking.body"
+              :session-id="chatStore.activeSessionId || undefined"
+              :message-id="message.id"
               :heading-id-prefix="effectiveHeadingIdPrefix"
             />
 
@@ -1211,9 +1231,11 @@ onBeforeUnmount(() => {
             </template>
 
             <!-- Render assistant message content -->
-            <MarkdownRenderer
+            <JsonRenderCard
               v-if="message.role === 'assistant' && message.content && !parsedThinking.body"
               :content="message.content"
+              :session-id="chatStore.activeSessionId || undefined"
+              :message-id="message.id"
               :heading-id-prefix="effectiveHeadingIdPrefix"
             />
 

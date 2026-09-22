@@ -70,6 +70,7 @@ import { ekkoMcpRoutes } from '../modules/ekko/routes/mcp'
 import { ekkoConfigRoutes } from '../modules/ekko/routes/config'
 import { petdexPublicRoutes, petdexRoutes } from '../modules/studio/routes/petdex'
 import { petRoutes } from '../modules/studio/routes/pets'
+import { jsonRenderActionRoutes } from '../modules/json-render/routes/actions'
 import { legacyAppApiCompatibility } from '../modules/studio/middleware/legacy-app-api'
 
 /**
@@ -153,4 +154,5 @@ export function registerRoutes(app: any, authMiddleware: Array<(ctx: Context, ne
   app.use(writeGateRoutes.routes())              // Hermes Agent write approval review
   app.use(petdexRoutes.routes())
   app.use(petRoutes.routes())
+  app.use(jsonRenderActionRoutes.routes())
 }
