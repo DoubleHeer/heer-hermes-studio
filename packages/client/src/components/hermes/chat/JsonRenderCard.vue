@@ -30,6 +30,7 @@ function inputComponent(tag: 'input' | 'textarea', ctx: any) {
   return h(tag, {
     value: value || '',
     placeholder: ctx.props.placeholder,
+    type: tag === 'input' && typeof ctx.props.inputType === 'string' ? ctx.props.inputType : undefined,
     rows: tag === 'textarea' ? ctx.props.rows : undefined,
     required: ctx.props.required,
     class: 'json-render-field-control',

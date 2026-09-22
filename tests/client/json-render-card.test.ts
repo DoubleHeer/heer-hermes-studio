@@ -61,6 +61,12 @@ describe('json-render spec extraction', () => {
     expect((wrapper.get('textarea').element as HTMLTextAreaElement).value).toBe('')
   })
 
+  it('renders inputType as the native input type', () => {
+    const dateSpec = { root: 'f', elements: { f: { type: 'Input', props: { label: '发现日期', inputType: 'date', value: { $bindState: '/form/date' } }, children: [] } } }
+    const wrapper = mount(JsonRenderCard, { props: { content: `\`\`\`json-render\n${JSON.stringify(dateSpec)}\n\`\`\`` } })
+    expect(wrapper.get('input').attributes('type')).toBe('date')
+  })
+
   it('falls back for invalid JSON or unknown components', () => {
     expect(extractJsonRenderSpec('```json-render\n{bad\n```')).toBeNull()
     expect(hasKnownJsonRenderTypes({ ...spec, elements: { form: { type: 'Unknown', props: {}, children: [] } } }, ['Card'])).toBe(false)
