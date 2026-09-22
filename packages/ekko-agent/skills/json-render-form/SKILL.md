@@ -1,14 +1,7 @@
 ---
 name: json-render-form
-description: "Generate a json-render generative UI form from a plain business description. The user only says what the form is for (fields, options, buttons); this skill supplies the fixed component catalog and spec rules. Use whenever the user asks to create a form, 表单, data card, or json-render UI."
-version: 1.0.0
-author: Ekko
-license: MIT
-platforms: [linux, macos, windows]
+description: Generate a json-render generative UI form from a plain business description. The user only says what the form is for (fields, options, buttons); this skill supplies the fixed component catalog and spec rules. Use whenever the user asks to create a form, 表单, data card, or json-render UI.
 metadata:
-  hermes:
-    source: packages/skills/json-render-form
-    tags: [json-render, form, generative-ui, form-spec]
   keywords:
     - json-render form
     - form spec
@@ -16,7 +9,6 @@ metadata:
     - form generation
     - json render form
 ---
-
 # json-render 表单生成
 
 用户消息里只有业务描述（表单做什么、包含什么字段）。你负责把它转换成 json-render 表单 spec，不要反过来问用户框架层面的信息（组件名、绑定路径、spec 结构）。
@@ -75,3 +67,4 @@ metadata:
   "btn-submit":{"type":"Button","props":{"label":"提交工单","variant":"primary"},"on":{"click":{"action":"submit_form"}},"children":[]}
 }}
 ```
+
