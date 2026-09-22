@@ -99,10 +99,11 @@ if (!validParts.value && parts.value) emit('fallback')
 </template>
 
 <style scoped lang="scss">
-.json-render-message { display: flex; flex-direction: column; gap: 10px; }
+// Narrow message columns scroll horizontally instead of squeezing the card below its min width.
+.json-render-message { display: flex; flex-direction: column; gap: 10px; max-width: 100%; overflow-x: auto; }
 
 .json-render-surface {
-  min-width: min(720px, 100%);
+  min-width: 720px;
   max-width: 960px;
   padding: 14px;
   border: 1px solid color-mix(in srgb, var(--border-color, #a8a8a8) 46%, transparent);
