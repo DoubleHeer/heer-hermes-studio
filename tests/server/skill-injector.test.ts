@@ -42,6 +42,11 @@ describe('HermesSkillInjector', () => {
     expect(HermesSkillInjector.resolveSourceDir({ HERMES_WEB_UI_SKILLS_DIR: override } as any, join(root, 'dist', 'server'))).toBe(override)
     expect(HermesSkillInjector.resolveSourceDir({} as any, join(root, 'dist', 'server'))).toBe(distSkills)
     expect(HermesSkillInjector.resolveSourceDir({} as any, join(root, 'packages', 'server', 'src', 'services', 'hermes'))).toBe(devSkills)
+
+    // Running from source, ../skills resolves to the injector directory itself; it must not be treated as the skills root.
+    const nestedDevBase = join(root, 'packages', 'server', 'src', 'modules', 'hermes', 'services', 'skills')
+    await mkdir(nestedDevBase, { recursive: true })
+    expect(HermesSkillInjector.resolveSourceDir({} as any, nestedDevBase)).toBe(devSkills)
   })
 
   it('injects missing skills but skips existing user-owned skills with the same name', async () => {

@@ -60,7 +60,10 @@ export class HermesSkillInjector {
       resolve(process.cwd(), 'packages/skills'),
     ]
 
-    return candidates.find(candidate => existsSync(candidate)) || candidates[0]
+    // When the server runs from source (ts-node), ../skills resolves to this injector
+    // directory itself, which would silently disable bundled skill injection.
+    const ownDir = resolve(baseDir)
+    return candidates.find(candidate => resolve(candidate) !== ownDir && existsSync(candidate)) || candidates[0]
   }
 
   static resolveTargetDirs(rootDir = detectHermesRootHome()): string[] {
