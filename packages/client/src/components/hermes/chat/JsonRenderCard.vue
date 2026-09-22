@@ -101,7 +101,7 @@ if (!validParts.value && parts.value) emit('fallback')
 .json-render-message { display: flex; flex-direction: column; gap: 10px; }
 
 .json-render-surface {
-  min-width: 720px;
+  min-width: min(720px, 100%);
   max-width: 960px;
   padding: 14px;
   border: 1px solid color-mix(in srgb, var(--border-color, #a8a8a8) 46%, transparent);
@@ -115,7 +115,8 @@ if (!validParts.value && parts.value) emit('fallback')
   :deep(.json-render-subtitle) { margin: 4px 0 0; font-size: 13px; line-height: 1.5; opacity: .68; }
   :deep(.json-render-row) { display: flex; align-items: stretch; flex-wrap: wrap; gap: 12px; }
   :deep(.json-render-column) { display: flex; flex-direction: column; gap: 12px; }
-  :deep(.json-render-field) { display: flex; flex: 1 1 180px; flex-direction: column; gap: 6px; min-width: 0; color: var(--text-color, #252525); font-size: 13px; font-weight: 550; }
+  :deep(.json-render-field) { display: flex; flex-direction: column; gap: 6px; min-width: 0; color: var(--text-color, #252525); font-size: 13px; font-weight: 550; }
+  :deep(.json-render-row > .json-render-field) { flex: 1 1 180px; }
   :deep(.json-render-field-control) { box-sizing: border-box; width: 100%; min-width: 0; min-height: 38px; padding: 8px 10px; border: 1px solid color-mix(in srgb, var(--border-color, #a8a8a8) 66%, transparent); border-radius: 8px; outline: none; background: color-mix(in srgb, var(--card-color, #fff) 94%, #f2f5fa); color: inherit; font: 400 14px/1.4 inherit; transition: border-color .16s ease, box-shadow .16s ease, background .16s ease; }
   :deep(textarea.json-render-field-control) { min-height: 88px; resize: vertical; }
   :deep(.json-render-field-control:hover) { border-color: color-mix(in srgb, var(--primary-color, #3b82f6) 45%, var(--border-color, #a8a8a8)); }
@@ -125,7 +126,8 @@ if (!validParts.value && parts.value) emit('fallback')
   :deep(.json-render-button.primary) { border-color: var(--primary-color, #3b82f6); background: var(--primary-color, #3b82f6); color: #fff; box-shadow: 0 3px 8px color-mix(in srgb, var(--primary-color, #3b82f6) 28%, transparent); }
   :deep(.json-render-button.primary:hover:not(:disabled)) { background: color-mix(in srgb, var(--primary-color, #3b82f6) 88%, #000); }
   :deep(.json-render-button:disabled) { cursor: wait; opacity: .6; }
-  :deep(.json-render-stat) { display: flex; flex: 1; flex-direction: column; gap: 3px; min-width: 120px; padding: 12px; border-radius: 10px; background: color-mix(in srgb, var(--primary-color, #3b82f6) 7%, transparent); }
+  :deep(.json-render-stat) { display: flex; flex-direction: column; gap: 3px; min-width: 120px; padding: 12px; border-radius: 10px; background: color-mix(in srgb, var(--primary-color, #3b82f6) 7%, transparent); }
+  :deep(.json-render-row > .json-render-stat) { flex: 1 1 140px; }
   :deep(.json-render-stat strong) { font-size: 21px; line-height: 1.15; }
   :deep(.json-render-stat span) { font-size: 12px; opacity: .65; }
   :deep(.json-render-badge) { width: fit-content; padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--primary-color, #3b82f6) 13%, transparent); color: var(--primary-color, #3b82f6); font-size: 12px; font-weight: 600; }
@@ -133,5 +135,5 @@ if (!validParts.value && parts.value) emit('fallback')
 
 .json-render-result { margin-top: 8px; padding: 10px 12px; border: 1px solid color-mix(in srgb, #18a058 38%, transparent); border-radius: 10px; background: rgba(24, 160, 88, .07); color: #16834c; font-size: 13px; }
 
-@media (max-width: 760px) { .json-render-surface { min-width: 0; max-width: none; padding: 11px; :deep(.json-render-field) { flex-basis: 100%; } } }
+@media (max-width: 760px) { .json-render-surface { min-width: 0; max-width: none; padding: 11px; :deep(.json-render-row > .json-render-field) { flex-basis: 100%; } } }
 </style>
